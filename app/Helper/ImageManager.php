@@ -11,8 +11,7 @@ class ImageManager
     {
         if ($image != null) {
 
-            $fileName   = 'Book-your-dine-'.time() . '-' . uniqid(). '.' .$image->getClientOriginalExtension();
-
+            $fileName   = env('APP_NAME').'-'.time() . '-' . uniqid(). '.' .$image->getClientOriginalExtension();
             if (!Storage::disk('public')->exists($dir)) {
                 Storage::disk('public')->makeDirectory($dir);
             }

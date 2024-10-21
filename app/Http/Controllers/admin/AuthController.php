@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Helper\ImageManager;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ class AuthController extends Controller
         {
             //VALIDATION START
             $rules = array(
-                'user_name'  => 'required|exists:users,email',
+                'user_name'  => 'required|exists:admins,email',
                 'password'  => 'required',
             );
 
@@ -38,7 +39,7 @@ class AuthController extends Controller
             }
             //VALIDATION END
 
-            if(Auth::attempt(['email' => $request->user_name, 'password' => $request->password]))
+            if(Auth::guard('admin')->attempt(['email' => $request->user_name, 'password' => $request->password]))
             {
                 $redirect = route('admin.dashboard');
                 return response()->json(['status' => 1,'redirect' => $redirect]);
@@ -73,18 +74,18 @@ class AuthController extends Controller
             //VALIDATION END
 
             $token = Str::random(100);
-            $user = User::where('email',$request->email)->first();
-            $user->remember_token = $token;
-            $user->save();
+            $admin = Admin::where('email',$request->email)->first();
+            $admin->remember_token = $token;
+            $admin->save();
 
-            $link = route('admin.reset_password').'/?'.$token;
+            // $link = route('admin.reset_password').'/?'.$token;
 
-            try {
-                Mail::send('admin.mail_template.forgotmail', ['link' => $link], function ($m) use ($user)
-                {
-                    $m->to($user->email)->subject("Reset your password");
-                });
-            } catch (\Throwable $th) {}
+            // try {
+            //     Mail::send('admin.mail_template.forgotmail', ['link' => $link], function ($m) use ($admin)
+            //     {
+            //         $m->to($admin->email)->subject("Reset your password");
+            //     });
+            // } catch (\Throwable $th) {}
 
             return response()->json(['status' => 1,'message' => 'Please Check Mail']);
 
@@ -123,12 +124,12 @@ class AuthController extends Controller
             {
                 if(!empty($token[1]))
                 {
-                    $user = User::where('remember_token',$token[1])->first();
-                    if(!empty($user))
+                    $admin = Admin::where('remember_token',$token[1])->first();
+                    if(!empty($admin))
                     {
-                        $user->password = Hash::make($request->new_password);
-                        $user->remember_token = Null;
-                        $user->save();
+                        $admin->password = Hash::make($request->new_password);
+                        $admin->remember_token = Null;
+                        $admin->save();
 
                         $redirect = route('admin.login');
                         return response()->json(['status' => 1,'redirect' => $redirect]);
@@ -144,16 +145,16 @@ class AuthController extends Controller
     {
         if($request->ajax())
         {
-            $user = User::where('id',Auth::user()->id)->first();
+            $admin = Admin::where('id',Auth::guard('admin')->user()->id)->first();
             if($request->image)
             {
-                $image = ImageManager::updateImage($user->image,$request->image,'profile/');
-                $user->image = $image;
+                $image = ImageManager::updateImage($admin->image,$request->image,'profile/');
+                $admin->image = $image;
             }
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->mobile = $request->mobile;
-            $user->save();
+            $admin->name = $request->name;
+            $admin->email = $request->email;
+            $admin->mobile = $request->mobile;
+            $admin->save();
 
             $redirect = route('admin.profile');
             return response()->json(['status' => 1,'redirect' => $redirect]);
@@ -183,9 +184,9 @@ class AuthController extends Controller
             //VALIDATION END
             // dd($request->all());
 
-            $user = User::where('id',Auth::user()->id)->first();
-            $user->password = Hash::make($request->password);
-            $user->save();
+            $admin = Admin::where('id',Auth::guard('admin')->user()->id)->first();
+            $admin->password = Hash::make($request->password);
+            $admin->save();
 
             return response()->json(['status' => 1,'message' => 'Password Change Successfully']);
 
@@ -195,7 +196,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('admin')->logout();
         return redirect()->route('admin.login');
     }
 }

@@ -15,9 +15,9 @@
     @slot('content')
     @php
         $image = asset('public/admin/img/user.png');
-        if(Storage::disk('public')->exists(Auth::user()->image ?? '-') && !empty(Auth::user()->image))
+        if(Storage::disk('public')->exists(Auth::guard('admin')->user()->image ?? '-') && !empty(Auth::guard('admin')->user()->image))
         {
-            $image = asset('public/storage/'.Auth::user()->image);
+            $image = asset('public/storage/'.Auth::guard('admin')->user()->image);
         }
     @endphp
     <form class="row m-0 py-4" name="formData" onsubmit="return false;" method="POST">
@@ -37,10 +37,9 @@
             </div>
         </div>
         <div class="col-lg-10 row m-0 py-3">
-            <input type="text" class="form-control" name="name" placeholder="Enter name" value="{{Auth::user()->name}}">
-            <input type="email" class="form-control mt-3" name="email" placeholder="Enter email" value="{{Auth::user()->email}}">
-            <input type="text" class="form-control mt-3" name="mobile" placeholder="Enter mobile" value="{{Auth::user()->mobile}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*?)\..*/g, '$1').replace(/^0[^.]/, '0');">
-            <input type="text" class="form-control mt-3" value="{{Auth::user()->role}}" disabled>
+            <input type="text" class="form-control" name="name" placeholder="Enter name" value="{{Auth::guard('admin')->user()->name}}">
+            <input type="email" class="form-control mt-3" name="email" placeholder="Enter email" value="{{Auth::guard('admin')->user()->email}}">
+            <input type="text" class="form-control mt-3" name="mobile" placeholder="Enter mobile" value="{{Auth::guard('admin')->user()->mobile}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*?)\..*/g, '$1').replace(/^0[^.]/, '0');">
 
             <div class="mt-3 text-end p-0">
                 <button class="btn btn-success" id="submitData">Update</button>
