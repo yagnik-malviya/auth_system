@@ -40,6 +40,7 @@
             <input type="text" class="form-control" name="name" placeholder="Enter name" value="{{Auth::guard('admin')->user()->name}}">
             <input type="email" class="form-control mt-3" name="email" placeholder="Enter email" value="{{Auth::guard('admin')->user()->email}}">
             <input type="text" class="form-control mt-3" name="mobile" placeholder="Enter mobile" value="{{Auth::guard('admin')->user()->mobile}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*?)\..*/g, '$1').replace(/^0[^.]/, '0');">
+            <input type="text" class="form-control mt-3" name="userName" placeholder="Enter User Name" value="{{Auth::guard('admin')->user()->userName}}">
 
             <div class="mt-3 text-end p-0">
                 <button class="btn btn-success" id="submitData">Update</button>
@@ -72,7 +73,6 @@
             {
                 $('input').removeClass('border border-danger');
                 $('textarea').removeClass('border border-danger');
-                $('span').text('');
 
                 $.ajaxSetup({
                         headers: {

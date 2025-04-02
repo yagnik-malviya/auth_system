@@ -139,6 +139,8 @@
     @endslot
 
     @slot('js')
-
+    <script>
+        $('.dashboard').addClass('active')
+    </script>
     @endslot
 @endcomponent

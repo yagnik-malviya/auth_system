@@ -603,6 +603,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 10px 0 5px 15px;
 }
 .sidebar-nav .nav-link {
+position: relative;
   display: flex;
   align-items: center;
   font-size: 15px;
@@ -655,7 +656,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: 0.3s;
 }
 .sidebar-nav .nav-content a i {
-  font-size: 6px;
+  font-size: 15px;
   margin-right: 8px;
   line-height: 0;
   border-radius: 50%;
@@ -664,7 +665,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #4154f1;
 }
 .sidebar-nav .nav-content a.active i {
-  background-color: #4154f1;
+  background-color: transparent;
 }
 
 /*--------------------------------------------------------------
@@ -1095,4 +1096,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .user_profile_image .upload-icon img{
     object-fit: cover;
+}
+
+.cke_notification_warning{
+    display: none !important;
+}
+
+.i_eye_link{
+    position: absolute;
+    top: 27%;
+    height: 20px;
+    width: 20px;
+    right: 21%;
+    z-index: 50;
 }

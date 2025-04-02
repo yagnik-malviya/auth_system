@@ -28,6 +28,8 @@
     @endslot
 
     @slot('js')
-
+        <script>
+            $('.contact').addClass('active')
+        </script>
     @endslot
 @endcomponent

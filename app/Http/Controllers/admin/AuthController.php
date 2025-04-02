@@ -21,12 +21,12 @@ class AuthController extends Controller
         {
             //VALIDATION START
             $rules = array(
-                'user_name'  => 'required|exists:admins,email',
+                'userName'  => 'required|exists:admins,userName',
                 'password'  => 'required',
             );
 
             $validatorMesssages = array(
-                'user_name.required'=>'Please Enter User Name.',
+                'userName.required'=>'Please Enter User Name.',
                 'password.required'=>'Please Enter Password.',
             );
 
@@ -39,7 +39,7 @@ class AuthController extends Controller
             }
             //VALIDATION END
 
-            if(Auth::guard('admin')->attempt(['email' => $request->user_name, 'password' => $request->password]))
+            if(Auth::guard('admin')->attempt(['userName' => $request->userName, 'password' => $request->password]))
             {
                 $redirect = route('admin.dashboard');
                 return response()->json(['status' => 1,'redirect' => $redirect]);
@@ -151,9 +151,10 @@ class AuthController extends Controller
                 $image = ImageManager::updateImage($admin->image,$request->image,'profile/');
                 $admin->image = $image;
             }
-            $admin->name = $request->name;
-            $admin->email = $request->email;
-            $admin->mobile = $request->mobile;
+            $admin->userName  = $request->userName;
+            $admin->name      = $request->name;
+            $admin->email     = $request->email;
+            $admin->mobile    = $request->mobile;
             $admin->save();
 
             $redirect = route('admin.profile');

@@ -3,14 +3,14 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="{{route('admin.dashboard')}}">
+        <a class="nav-link dashboard" href="{{route('admin.dashboard')}}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('admin.contact.list')}}">
+        <a class="nav-link contact" href="{{route('admin.contact.list')}}">
           <i class="bi bi-file-earmark"></i>
           <span>Contact Us</span>
         </a>

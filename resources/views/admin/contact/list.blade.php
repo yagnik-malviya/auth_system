@@ -30,6 +30,8 @@
 
     @slot('js')
         <script>
+            $('.contact').addClass('active')
+
             $(function () {
 		        var table = $('.table').DataTable({
 		            processing: true,

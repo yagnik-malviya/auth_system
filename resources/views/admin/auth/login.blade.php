@@ -12,11 +12,11 @@
             @csrf
             <div class="col-12">
             <label for="yourUsername" class="form-label">Username</label>
-            <div class="input-group has-validation err_user_name">
+            <div class="input-group has-validation err_userName">
                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                <input type="text" name="user_name" class="form-control" id="yourUsername">
+                <input type="text" name="userName" class="form-control" id="yourUsername">
             </div>
-            <span class="text-danger errmsg errmsg_user_name"></span>
+            <span class="text-danger errmsg errmsg_userName"></span>
             </div>
 
             <div class="col-12 err_password">

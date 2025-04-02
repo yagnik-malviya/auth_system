@@ -10,7 +10,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="{{route('admin.dashboard')}}" class="logo d-flex align-items-center justify-content-center">
-            <img src="{{ asset('public/admin/img/logo.png') }}" alt="" class="w-25">
+            <img src="{{ asset('public/admin/img/logo.png') }}" alt="" class="w-75">
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
