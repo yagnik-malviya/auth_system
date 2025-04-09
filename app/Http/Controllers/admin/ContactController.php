@@ -18,8 +18,8 @@ class ContactController extends Controller
 	                ->addIndexColumn()
 
 	                ->addColumn('action', function($row){
-                        $btn = '<a href="'.route('admin.contact.view',['id'=>$row->id]).'"><button class="btn-sm btn-success">View</button></a>
-                                <button onclick="Delete('.$row->id.')" class="btn-sm btn-danger">Delete</button>';
+                        $btn = '';
+                        $btn .= '<a href="' . route('admin.contact.view', ['id' => $row->id]) . '"><button class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></button></a>';
                         return $btn;
 	                })
 
